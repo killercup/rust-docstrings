@@ -2,6 +2,36 @@
 
 This is a **proof of concept**.
 
+This Rust library can be used to extract some data from documentation formatted as described [here](https://scribbles.pascalhertleif.de/machine-readable-inline-markdown-code-cocumentation.html).
+
+For example, given a string like this one:
+
+```markdown
+Lorem ipsum
+
+A longer description lorem ipsum dolor sit amet.
+
+# Parameters
+
+- `param1`: Foo
+- `param2`: Bar
+```
+
+it will return structure like this:
+
+```rust
+DocBlock {
+    teaser: "Lorem ipsum",
+    description: Some("A longer description lorem ipsum dolor sit amet."),
+    sections: [
+        Parameters([
+            ("param1", "Foo"),
+            ("param2", "Bar")
+        ])
+    ]
+}
+```
+
 ## License
 
 Licensed under either of
