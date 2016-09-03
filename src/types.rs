@@ -11,7 +11,7 @@ pub type Documentation = String;
 pub type SectionHeadline = String;
 
 /// Information extracted from a doc comment
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub struct DocBlock {
     /// First line
     pub teaser: String,
@@ -22,7 +22,7 @@ pub struct DocBlock {
 }
 
 /// Documentation sections
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub enum DocSection {
     /// Function parameters, mapping param name to docs
     Parameters(Vec<(Identifier, Documentation)>),

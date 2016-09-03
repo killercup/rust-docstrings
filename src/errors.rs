@@ -1,6 +1,6 @@
 quick_error! {
     /// Errors while parsing documention
-    #[derive(Debug)]
+    #[derive(Debug, PartialEq, Eq, Clone, Hash)]
     pub enum ParseError {
         NoTeaser {
             description("Doc comment did not start with a teaser.")
