@@ -23,17 +23,7 @@ pub fn teaser<'a, I>(events: &mut I) -> Result<String, ParseError> where
     I: Iterator<Item=Event<'a>>,
 {
     if let Some(Event::Start(Tag::Paragraph)) = events.next() {
-        let mut teaser = String::new();
-        loop {
-            match events.next() {
-                None | Some(Event::End(Tag::Paragraph)) => break,
-                Some(Event::Text(text)) => teaser.push_str(&text),
-                Some(Event::SoftBreak) => teaser.push_str("\n"),
-                Some(unexpected) => return Err(ParseError::UnexpectedMarkdown(
-                    "Teaser".into(), format!("{:?}", unexpected))),
-            }
-        }
-        Ok(teaser)
+        Ok(md(events.take_while(not!(end Tag::Paragraph))))
     } else {
         Err(ParseError::NoTeaser)
     }
@@ -82,8 +72,12 @@ pub fn sections<'a, I>(events: &mut Peekable<I>) -> Result<Vec<DocSection>, Pars
 
         match events.next() {
             None => break,
-            Some(unexpected) => return Err(ParseError::UnexpectedMarkdown(
-                "Sections".into(), format!("{:?}", unexpected))),
+            // Next section
+            Some(Event::Start(Tag::Header(1))) =>
+                sections.push(try!(section(events))),
+            Some(unexpected) =>
+                return Err(ParseError::UnexpectedMarkdown(
+                    "Sections".into(), format!("{:?}", unexpected))),
         }
     }
 

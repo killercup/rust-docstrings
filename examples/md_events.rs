@@ -29,7 +29,16 @@ Very nice.
 
 # Parameters
 
-- `param1`: Foo
+- `param1`: Foo lorem ipsum dolor long line right here
+    yes this was it
 - `param2`: Bar
+
+# Examples
+
+```rust
+fn name(arg: Type) -> RetType {
+    unimplemented!();
+}
+```
     ");
 }
