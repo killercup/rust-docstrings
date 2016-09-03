@@ -4,6 +4,13 @@ This is a **proof of concept**.
 
 This Rust library can be used to extract some data from documentation formatted as described [here](https://scribbles.pascalhertleif.de/machine-readable-inline-markdown-code-cocumentation.html).
 
+[![Build Status](https://travis-ci.org/killercup/rust-docstrings.svg?branch=master)](https://travis-ci.org/killercup/rust-docstrings)
+[![Coverage Status](https://coveralls.io/repos/github/killercup/rust-docstrings/badge.svg?branch=master)](https://coveralls.io/github/killercup/rust-docstrings?branch=master)
+
+[Rendered **Documentation** of master branch.](https://killercup.github.io/rust-docstrings/)
+
+## What it does
+
 For example, given a string like this one:
 
 ```markdown
