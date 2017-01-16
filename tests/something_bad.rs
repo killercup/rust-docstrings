@@ -24,7 +24,7 @@ Lorem ipsum
 Dafuq
 
 - `foo`: Bar").unwrap_err(),
-        docstrings::ParseError::UnexpectedMarkdown("Parameters".into(), "Start(Paragraph)".into())
+        docstrings::ParseError::UnexpectedMarkdown("Parameters".into(), "(Start(Paragraph), 26)".into())
     );
 }
 

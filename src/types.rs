@@ -1,3 +1,5 @@
+use std::ops::Deref;
+
 /// A Rust identifier
 pub type Identifier = String;
 
@@ -14,11 +16,39 @@ pub type SectionHeadline = String;
 #[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub struct DocBlock {
     /// First line
-    pub teaser: String,
+    pub teaser: WithOffset<String>,
     /// Paragraphs after first line
-    pub description: Option<Documentation>,
+    pub description: Option<WithOffset<Documentation>>,
     /// Sections
-    pub sections: Vec<DocSection>,
+    pub sections: Vec<WithOffset<DocSection>>,
+}
+
+/// Wraps a parsed part from a doc comment together with its
+/// offset in the original Markdown String
+#[derive(Debug, PartialEq, Eq, Clone, Hash)]
+pub struct WithOffset<T> {
+    /// Contained parsed part of doc comment
+    pub inner: T,
+    /// Offset in the original Markdown String
+    pub offset: usize,
+}
+
+impl<T> WithOffset<T> {
+    /// Wrap a parsed doc comment together with its original offset
+    pub fn new(inner: T, offset: usize) -> WithOffset<T> {
+        WithOffset {
+            inner: inner,
+            offset: offset,
+        }
+    }
+}
+
+impl<T> Deref for WithOffset<T> {
+    type Target = T;
+
+    fn deref(&self) -> &T {
+        &self.inner
+    }
 }
 
 /// Documentation sections

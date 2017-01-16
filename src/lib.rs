@@ -16,6 +16,8 @@ mod errors;
 mod to_md;
 mod extractors;
 
+mod offset_parser;
+
 pub use errors::ParseError;
 pub use types::*;
 
@@ -49,19 +51,20 @@ pub use types::*;
 ///     "Lorem ipsum\n\nDolor sit amet.\n\n# Parameters\n\n- `param1`: Foo\n- `param2`: Bar\n"
 /// ).unwrap(),
 ///     DocBlock {
-///         teaser: "Lorem ipsum".into(),
-///         description: Some("Dolor sit amet.".into()),
+///         teaser: WithOffset::new("Lorem ipsum".into(), 0),
+///         description: Some(WithOffset::new("Dolor sit amet.".into(), 12)),
 ///         sections: vec![
-///             DocSection::Parameters(vec![
+///             WithOffset::new(DocSection::Parameters(vec![
 ///                 ("param1".into(), "Foo".into()),
 ///                 ("param2".into(), "Bar".into())
-///             ])
+///             ]), 32)
 ///         ]
 ///     }
 /// );
 /// ```
 pub fn parse_md_docblock(md: &str) -> Result<DocBlock, ParseError> {
-    let mut md_events = Parser::new(md).peekable();
+    let parser = offset_parser::OffsetParser(Parser::new(md));
+    let mut md_events = parser.peekable();
 
     Ok(DocBlock {
         teaser: try!(extractors::teaser(&mut md_events)),
