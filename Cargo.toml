@@ -4,5 +4,5 @@ name = "docstrings"
 version = "0.1.0"
 
 [dependencies]
-pulldown-cmark = "0.0.8"
+pulldown-cmark = "0.0.14"
 quick-error = "1.1.0"
