@@ -1,7 +1,20 @@
 [package]
-authors = ["Pascal Hertleif <killercup@gmail.com>"]
 name = "docstrings"
 version = "0.1.0"
+authors = [
+    "Pascal Hertleif <killercup@gmail.com>",
+    "Martin Carton <cartonmartin@gmail.com>",
+]
+license = "MIT/Apache-2.0"
+description = "Extract data from Markdown as used in Rust documentation strings"
+documentation = "https://docs.rs/docstrings"
+repository = "https://github.com/killercup/rust-docstrings"
+readme = "README.md"
+keywords = ["markdown", "documentation"]
+categories = ["development-tools", "parsing"]
+
+[badges]
+travis-ci = { repository = "killercup/rust-docstrings", branch = "master" }
 
 [dependencies]
 pulldown-cmark = "0.0.14"
