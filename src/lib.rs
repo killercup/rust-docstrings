@@ -39,12 +39,12 @@ use ::std::iter::Peekable;
 ///
 /// # Examples
 ///
-/// Please excuse the weird way the input is formatting in this example.
+/// Please excuse the weird way the input is formatted in this example.
 /// Embedding Markdown strings in Rust code examples, which are just code blocks
-/// in Markdown documentation strings inside a Rust program is kinda hard:
-/// Rustdoc treads `#` at the beginning of code example line as a sign it
+/// in Markdown documentation strings inside a Rust program is *hard!*
+/// (Rustdoc treads `#` at the beginning of code example line as a sign it
 /// should omit the line from output. Sadly, this means I can't write Markdown
-/// headlines as usual.
+/// headlines as usual.)
 ///
 /// ```rust
 /// # use self::docstrings::*;
