@@ -10,6 +10,7 @@ extern crate pulldown_cmark;
 #[macro_use] extern crate quick_error;
 
 use pulldown_cmark::Parser;
+use pulldown_cmark::Event;
 
 mod types;
 mod errors;
@@ -18,6 +19,8 @@ mod extractors;
 
 pub use errors::ParseError;
 pub use types::*;
+
+use ::std::iter::Peekable;
 
 /// Parse documentation and extract data
 ///
@@ -62,10 +65,29 @@ pub use types::*;
 /// ```
 pub fn parse_md_docblock(md: &str) -> Result<DocBlock, ParseError> {
     let mut md_events = Parser::new(md).peekable();
+    parse_md_docblock_events(&mut md_events)
+}
 
+/// Parse documentation and extract data
+///
+/// # Parameters
+///
+/// - `md`: Markdown
+///
+/// # Returns
+///
+/// A `Result`, which is either
+///
+/// - `Ok(DocBlock)`: A type that contains all extracted information (including
+///     all unknown sections as `Custom` sections).
+/// - `Err(ParseError)`: The first encountered error while parsing the
+///     documentation string.
+pub fn parse_md_docblock_events<'a, I>(events: &mut Peekable<I>) -> Result<DocBlock, ParseError> where
+    I: Iterator<Item=Event<'a>>,
+{
     Ok(DocBlock {
-        teaser: try!(extractors::teaser(&mut md_events)),
-        description: try!(extractors::description(&mut md_events)),
-        sections: try!(extractors::sections(&mut md_events)),
+        teaser: try!(extractors::teaser(events)),
+        description: try!(extractors::description(events)),
+        sections: try!(extractors::sections(events)),
     })
 }
