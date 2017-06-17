@@ -6,6 +6,8 @@
 
 #![deny(missing_docs, warnings, unsafe_code, missing_debug_implementations)]
 
+#![cfg_attr(not(feature = "pulldown-cmark"), feature(rustc_private))]
+
 extern crate pulldown_cmark;
 #[macro_use] extern crate quick_error;
 
