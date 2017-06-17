@@ -1,6 +1,6 @@
 [package]
 name = "docstrings"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
     "Pascal Hertleif <killercup@gmail.com>",
     "Martin Carton <cartonmartin@gmail.com>",
